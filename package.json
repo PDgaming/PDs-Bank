@@ -21,6 +21,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@supabase/supabase-js": "^2.43.5"
+		"@supabase/supabase-js": "^2.43.5",
+		"bootstrap": "^5.3.3"
 	}
 }
