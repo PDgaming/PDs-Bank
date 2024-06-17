@@ -19,6 +19,7 @@
                 Email: email,
                 Password: password,
             });
+            goto("/login");
         } else {
             alert("Please enter all values");
         }

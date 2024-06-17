@@ -25,8 +25,24 @@
 </center>
 
 {#if userData}
-    First Name: {userData?.FirstName || "Loading..."}<br />
-    Last Name: {userData?.LastName || "Loading..."}<br />
-    Email: {userData?.Email || "Loading..."}<br />
-    Balance: {userData?.Balance}
+    <h5>
+        First Name:
+
+        {userData?.FirstName || "Loading..."}<br />
+    </h5>
+    <h5>
+        Last Name:
+
+        {userData?.LastName || "Loading..."}<br />
+    </h5>
+    <h5>
+        Email:
+
+        {userData?.Email || "Loading..."}<br />
+    </h5>
+    <h5>
+        Balance:
+
+        {userData?.Balance}
+    </h5>
 {/if}
