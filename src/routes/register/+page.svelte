@@ -1,6 +1,32 @@
 <script>
     import { goto } from "$app/navigation";
     import { supabase } from "$lib/supabaseClient";
+    import { onMount } from "svelte";
+
+    async function generateUUID() {
+        if (
+            typeof window !== "undefined" &&
+            window.crypto &&
+            window.crypto.randomUUID
+        ) {
+            return window.crypto.randomUUID();
+        } else {
+            console.log(
+                "crypto.randomUUID not supported. Using a fallback method.",
+            );
+            // Fallback for older browsers (explained below)
+            const randomPart = Math.random().toString(36).substring(2, 15);
+            return `${randomPart}`;
+        }
+    }
+    async function getPrivateKey() {
+        const privateKey = await generateUUID();
+        return privateKey;
+    }
+    async function getPublicKey() {
+        const publicKey = await generateUUID();
+        return publicKey;
+    }
 
     async function register() {
         //@ts-ignore
@@ -12,12 +38,18 @@
         //@ts-ignore
         const password = document.getElementById("password").value;
 
+        const privateKey = await getPrivateKey();
+        const publicKey = await getPublicKey();
+
         if (firstName && lastName && email && password) {
             const { data } = await supabase.from("Users").insert({
                 FirstName: firstName,
                 LastName: lastName,
                 Email: email,
                 Password: password,
+                Balance: 0,
+                PrivateKey: privateKey,
+                PublicKey: publicKey,
             });
             goto("/login");
         } else {

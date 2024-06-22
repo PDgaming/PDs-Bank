@@ -1,6 +1,7 @@
 <script>
     import { supabase } from "$lib/supabaseClient";
     import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
 
     let userData = null;
     async function getUserData() {
@@ -18,6 +19,9 @@
         }
     }
     onMount(getUserData);
+    function send() {
+        goto("/transactions/send");
+    }
 </script>
 
 <center>
@@ -45,4 +49,18 @@
 
         {userData?.Balance}
     </h5>
+    <h5>
+        Private Key:
+        {userData?.PrivateKey || "Loading..."}
+        <span style="color: red">*Do not Share this with anyone</span>
+        <br />
+    </h5>
+    <h5>
+        Public Key:
+        {userData?.PublicKey || "Loading..."}<br />
+    </h5>
 {/if}
+
+<div class="transactions">
+    <button class="btn btn-primary" on:click={send}>Send Money</button>
+</div>
